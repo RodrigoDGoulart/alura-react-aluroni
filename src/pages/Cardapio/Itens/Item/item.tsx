@@ -1,29 +1,32 @@
 import logo from 'assets/logo.svg';
 import styles from './Item.module.scss';
+import cardapio from '../itens.json';
 
-export default function Item() {
+type Props = typeof cardapio[0]
+
+export default function Item(props: Props) {
     return (
         <div className={styles.item}>
             <div className={styles.item__imagem}>
-                <img src={logo} alt='imagem' />
+                <img src={logo} alt={props.title} />
             </div>
             <div className={styles.item__descricao}>
                 <div className={styles.item__titulo}>
-                    <h2>Macarraõ</h2>
-                    <p>descrição</p>
+                    <h2>{props.title}</h2>
+                    <p>{props.description}</p>
                 </div>
                 <div className={styles.item__tags}>
                     <div className={styles.item__tipo}>
-                        Massa
+                        {props.category.label}
                     </div>
                     <div className={styles.item__porcao}>
-                        400g
+                        {props.size}g
                     </div>
                     <div className={styles.item__qtdpessoas}>
-                        Serve 2 pessoas
+                        Serve {props.serving} pessoa{!(props.serving === 1) && 's'}
                     </div>
                     <div className={styles.item__valor}>
-                        R$100,00
+                        R$ {props.price.toFixed(2)}
                     </div>
                 </div>
             </div>
